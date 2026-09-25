@@ -20,13 +20,15 @@ public class Enemy : MonoBehaviour, IEvents
 
     [SerializeField] private List<Item> _item = new List<Item>();
 
+    private void Awake()
+    {
+        //ServiceLocator.Register(this);
+        //ServiceLocator.Register<IEvents>(this);
+    }
 
     private void Start()
     {
         _enemyState = EnemyState.Follow;
-
-
-        Debug.Log(_item[0].prefab);
     }
 
     private void Update()
@@ -71,7 +73,8 @@ public class Enemy : MonoBehaviour, IEvents
 
     public void Attack()
     {
-        _playerTarget.Damage();
+        //_playerTarget.Damage();
+        //ServiceLocator.Get<Player>().Damage();
     }
 
     public void Damage()

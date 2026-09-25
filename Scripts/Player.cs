@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Player : MonoBehaviour, IEvents
+public class Player : MonoBehaviour
 {
     [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private float _mouseSensitivity = 200f;
 
     [SerializeField] private Transform _hand;
+
+    // Сервис регистрирует себя
+    private void Awake()
+    {
+        //ServiceLocator.Register(this);
+        //ServiceLocator.Register<IEvents>(this);
+    }
 
     // Update is called once per frame
     void Update()
@@ -83,6 +90,14 @@ public class Player : MonoBehaviour, IEvents
             if (hit.collider.CompareTag("Enemy"))
             {
                 hit.transform.GetComponent<IEvents>().Damage();
+
+                /*
+                IEvents enemyEvents = ServiceLocator.Get<IEvents>();
+                if (enemyEvents != null) 
+                {
+                    enemyEvents.Damage();
+                }
+                */
             }
         }
     }
