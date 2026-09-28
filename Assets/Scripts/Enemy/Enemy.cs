@@ -6,14 +6,8 @@ using static UnityEditor.Progress;
 
 public class Enemy : MonoBehaviour, IEvents
 {
-    private enum EnemyState
-    { 
-        Follow,
-        Attack,
-        Die,
-    }
-
     [SerializeField] private float _moveSpeed = 5;
+    [SerializeField] private float _distanceRate = 0.5f;
 
     [SerializeField] private EnemyState _enemyState;
     [SerializeField] private Player _playerTarget;
@@ -61,7 +55,7 @@ public class Enemy : MonoBehaviour, IEvents
 
         transform.rotation = Quaternion.LookRotation(direction);
 
-        if (Vector3.Distance(_playerTarget.transform.position, transform.position) < 0.5f)
+        if (Vector3.Distance(_playerTarget.transform.position, transform.position) < _distanceRate)
         {
             _enemyState = EnemyState.Attack;
         }

@@ -111,9 +111,7 @@ public static class ServiceLocator
             // ServiceLocator.Register(this);
             //
             // Тогда выбрасываем понятную ошибку.
-            throw new Exception(
-                $"Service {typeof(T).Name} is not registered."
-            );
+            throw new Exception($"Service {typeof(T).Name} is not registered.");
         }
 
         // Здесь service имеет тип object.

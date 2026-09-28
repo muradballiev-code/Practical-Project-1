@@ -6,7 +6,7 @@ public class GetItem : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.TryGetComponent<Player>(out Player player))
         {
             ServiceLocator.Get<UIManager>().AddEXP();
         }

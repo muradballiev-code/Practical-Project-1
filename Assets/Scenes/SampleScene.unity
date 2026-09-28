@@ -799,9 +799,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da327c103d77c6848ba1a7f5f6190418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 8
-  _mouseSensitivity: 200
-  _hand: {fileID: 0}
+  _player: {fileID: 11400000, guid: ea4d44392a01f1345b75986b3e50052c, type: 2}
+  _hand: {fileID: 333744606}
 --- !u!1 &1944831257
 GameObject:
   m_ObjectHideFlags: 0
@@ -1012,6 +1011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 3
+  _distanceRate: 0.5
   _enemyState: 0
   _playerTarget: {fileID: 1263025042}
   _item:

@@ -5,8 +5,7 @@ using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private float _moveSpeed = 5f;
-    [SerializeField] private float _mouseSensitivity = 200f;
+    [SerializeField] private PlayerSO _player;
 
     [SerializeField] private Transform _hand;
 
@@ -36,7 +35,7 @@ public class Player : MonoBehaviour
 
         Vector3 move = new Vector3(h, 0, v).normalized;
 
-        transform.Translate(move * _moveSpeed * Time.deltaTime);
+        transform.Translate(move * _player.moveSpeed * Time.deltaTime);
     }
 
     public void PlayerRotationController()
@@ -89,6 +88,7 @@ public class Player : MonoBehaviour
         {
             if (hit.collider.CompareTag("Enemy"))
             {
+                //Вызываем метод Damage из IEvents
                 hit.transform.GetComponent<IEvents>().Damage();
 
                 /*
