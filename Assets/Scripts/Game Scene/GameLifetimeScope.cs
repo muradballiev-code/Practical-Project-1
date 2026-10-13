@@ -12,6 +12,7 @@ public class GameLifetimeScope : LifetimeScope
 
 
     [SerializeField] private Player _player;
+    [SerializeField] private Enemy _enemy;
 
     protected override void Configure(IContainerBuilder builder)
     {
@@ -23,5 +24,8 @@ public class GameLifetimeScope : LifetimeScope
 
         //Регистрируем существующий на сцене компонент Player без использования интерфейса
         builder.RegisterComponent(_player);
+
+        //Регистрируем существующий на сцене компонент Enemy без использования интерфейса
+        builder.RegisterComponent(_enemy);
     }
 }

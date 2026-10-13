@@ -9,6 +9,8 @@ using VContainer.Unity;
 
 public class MenuUIManager : MonoBehaviour
 {
+    protected MenuPresenter _presenter;
+
     [SerializeField] private Button _startGameButton;
     [SerializeField] private Button _quitGameButton;
 
@@ -21,6 +23,11 @@ public class MenuUIManager : MonoBehaviour
         _menuService = menuService;
     }
 
+    public void Init(MenuPresenter presenter)
+    {
+        _presenter = presenter;
+    }
+
     private void Start()
     {
         _startGameButton.onClick.AddListener(OnClickStartGameButton);
@@ -29,13 +36,15 @@ public class MenuUIManager : MonoBehaviour
 
     public void OnClickStartGameButton()
     {
-        Debug.Log("Button Pressed");
+        _presenter?.ClickStartGame();
 
-        _menuService.StartGame();
+        //_menuService.StartGame();
     }
 
     public void OnClickQuitGameButton()
     {
-        _menuService.QuitGame();
+        //_menuService.QuitGame();
+
+        _presenter?.ClickQuitGame();
     }
 }

@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Pool;
 using UnityEngine.Rendering.VirtualTexturing;
 using VContainer;
+using VContainer.Unity;
 using static UnityEditor.Progress;
 
 public class Enemy : MonoBehaviour, IEvents
@@ -15,6 +17,14 @@ public class Enemy : MonoBehaviour, IEvents
     [SerializeField] private Player _playerTarget;
 
     [SerializeField] private List<Item> _item = new List<Item>();
+
+    private IObjectResolver _objectResolver;
+
+    [Inject]
+    public void Construct(IObjectResolver objectResolver)
+    {
+        _objectResolver = objectResolver;
+    }
 
     private void Awake()
     {
@@ -81,7 +91,17 @@ public class Enemy : MonoBehaviour, IEvents
     public void EnemyDie()
     {
         Item randomItem = _item[Random.Range(0, _item.Count)];
-        Instantiate(randomItem.prefab, transform.position, transform.rotation);
+
+        //Простой способ Спавна через Unity Mono
+        //Instantiate(randomItem.prefab, transform.position, transform.rotation);
+
+        
+        //Cпособ Спавна через VContainer с последующим Inject
+        //Способ-1
+        //GetItem item = Instantiate(randomItem.prefab, transform.position, transform.rotation);
+        //_objectResolver.Inject(item);
+        //Способ-2
+        _objectResolver.Instantiate(randomItem.prefab, transform.position, transform.rotation);
 
         Destroy(this.gameObject);
     }
