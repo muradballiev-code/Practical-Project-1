@@ -17,7 +17,7 @@ public class GameLifetimeScope : LifetimeScope
     protected override void Configure(IContainerBuilder builder)
     {
         //Регистрируем существующий на сцене компонент UIManager без использования интерфейса
-        builder.RegisterComponent(_uiManager);
+        builder.RegisterComponent(_uiManager).As<IUIInterface>();
 
         //Регистрируем существующий на сцене компонент GameManager без использования интерфейса
         builder.RegisterComponent(_gameManager);

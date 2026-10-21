@@ -217,7 +217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &175365073
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1387,9 +1387,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 3
-  _distanceRate: 0.5
+  _distanceRate: 1.5
   _enemyState: 0
-  _playerTarget: {fileID: 1263025042}
   _item:
   - {fileID: 11400000, guid: 10869a8d4c0d56b4498dcf167689e209, type: 2}
   - {fileID: 11400000, guid: 81b665f8d349a02449f9c9b60b0aad4e, type: 2}

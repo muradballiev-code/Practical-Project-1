@@ -5,11 +5,11 @@ using VContainer;
 
 public class GameManager : MonoBehaviour
 {
-    private UIManager _uiManager;
+    private IUIInterface _uiManager;
 
     //Âûחûגאול סונגטס UIManager קונוח injection 
     [Inject]
-    public void Counstruct(UIManager uiManager)
+    public void Construct(IUIInterface uiManager)
     {
         _uiManager = uiManager;
     }

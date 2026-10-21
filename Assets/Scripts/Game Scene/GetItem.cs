@@ -7,11 +7,11 @@ using VContainer.Unity;
 public class GetItem : MonoBehaviour
 {
     //[SerializeField] private UIManager _uimanager;
-    private UIManager _uiManager;
+    private IUIInterface _uiManager;
 
     //Âûחûגאול סונגטס UIManager קונוח injection 
     [Inject]
-    public void Construct(UIManager uIManager)
+    public void Construct(IUIInterface uIManager)
     {
         _uiManager = uIManager;
     }
@@ -22,15 +22,7 @@ public class GetItem : MonoBehaviour
         {
             _uiManager.AddEXP();
 
-            /*
-            if (ServiceLocator.TryGet<UIManager>(out var uimanager))
-            {
-                uimanager.AddEXP();
-            }
-            */
-            //ServiceLocator.Get<UIManager>().AddEXP();
-
-            Destroy(this);
+            Destroy(gameObject);
         }
     }
 }

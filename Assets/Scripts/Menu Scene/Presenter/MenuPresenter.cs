@@ -1,20 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class MenuPresenter
 {
     private readonly MenuModel _model;
-    private readonly MenuUIManager _view;
+    private readonly IMenuView _view;
 
-    public MenuPresenter(MenuModel model, MenuUIManager view)
+    public MenuPresenter(MenuModel model, IMenuView view)
     {
         _model = model;
         _view = view;
 
-        // Инициализируем View
-        _view.Init(this);
+        //Инициализируем события на кнопки для View
+        _view.StartClicked += ClickStartGame;
+        _view.QuitClicked += ClickQuitGame;
     }
 
     public void ClickStartGame()    
@@ -25,5 +25,11 @@ public class MenuPresenter
     public void ClickQuitGame()
     {
         _model.QuitGame();
+    }
+
+    public void OnDisable()
+    {
+        _view.StartClicked -= ClickStartGame;
+        _view.QuitClicked -= ClickQuitGame;
     }
 }

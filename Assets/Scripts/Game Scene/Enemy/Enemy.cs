@@ -1,35 +1,26 @@
-using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Pool;
-using UnityEngine.Rendering.VirtualTexturing;
 using VContainer;
 using VContainer.Unity;
-using static UnityEditor.Progress;
 
 public class Enemy : MonoBehaviour, IEvents
 {
     [SerializeField] private float _moveSpeed = 5;
-    [SerializeField] private float _distanceRate = 0.5f;
+    [SerializeField] private float _distanceRate = 1.5f;
 
     [SerializeField] private EnemyState _enemyState;
-    [SerializeField] private Player _playerTarget;
 
     [SerializeField] private List<Item> _item = new List<Item>();
 
     private IObjectResolver _objectResolver;
+    private Player _playerTarget;
 
     [Inject]
-    public void Construct(IObjectResolver objectResolver)
+    public void Construct(IObjectResolver objectResolver, Player playerTarget)
     {
         _objectResolver = objectResolver;
-    }
-
-    private void Awake()
-    {
-        //ServiceLocator.Register(this);
-        //ServiceLocator.Register<IEvents>(this);
+        _playerTarget = playerTarget;
     }
 
     private void Start()
@@ -79,8 +70,14 @@ public class Enemy : MonoBehaviour, IEvents
 
     public void Attack()
     {
-        _playerTarget.Damage();
-        //ServiceLocator.Get<Player>().Damage();
+        if (Vector3.Distance(_playerTarget.transform.position, transform.position) < _distanceRate)
+        {
+            _playerTarget.Damage();
+        }
+        else
+        {
+            _enemyState = EnemyState.Follow;
+        }
     }
 
     public void Damage()
@@ -92,17 +89,20 @@ public class Enemy : MonoBehaviour, IEvents
     {
         Item randomItem = _item[Random.Range(0, _item.Count)];
 
-        //Простой способ Спавна через Unity Mono
-        //Instantiate(randomItem.prefab, transform.position, transform.rotation);
+        if (randomItem != null)
+        { 
+            //Простой способ Спавна через Unity Mono
+            //Instantiate(randomItem.prefab, transform.position, transform.rotation);
 
         
-        //Cпособ Спавна через VContainer с последующим Inject
-        //Способ-1
-        //GetItem item = Instantiate(randomItem.prefab, transform.position, transform.rotation);
-        //_objectResolver.Inject(item);
-        //Способ-2
-        _objectResolver.Instantiate(randomItem.prefab, transform.position, transform.rotation);
+            //Cпособ Спавна через VContainer с последующим Inject
+            //Способ-1
+            //GetItem item = Instantiate(randomItem.prefab, transform.position, transform.rotation);
+            //_objectResolver.Inject(item);
+            //Способ-2
+            _objectResolver.Instantiate(randomItem.prefab, transform.position, transform.rotation);
 
-        Destroy(this.gameObject);
+            Destroy(this.gameObject);
+        }
     }
 }

@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine.SceneManagement;
 using VContainer;
 using VContainer.Unity;

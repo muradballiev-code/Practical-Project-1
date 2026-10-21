@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using VContainer;
 
 public class Player : MonoBehaviour
@@ -12,26 +9,19 @@ public class Player : MonoBehaviour
     private PlayerMovement _playerMovement;
     private PlayerRotation _playerRotation;
 
-    private UIManager _uiManager;
-
-    //Сервис регистрирует себя используя ServiceLocator
-    private void Awake()
-    {
-        //ServiceLocator.Register(this);
-        //ServiceLocator.Register<IEvents>(this);
-    }
+    private IUIInterface _uiManager;
 
     //Вызываем сервис UIManager через injection 
     [Inject]
-    public void Construct(UIManager uIManager)
+    public void Construct(IUIInterface uIManager)
     {
         _uiManager = uIManager;
     }
 
     private void Start()
     {
-        _playerMovement = new PlayerMovement();
-        _playerRotation = new PlayerRotation();
+        _playerMovement = new PlayerMovement(); //Создаём новый экземпляр класса PlayerMovement
+        _playerRotation = new PlayerRotation(); //Создаём новый экземпляр класса PlayerRotation
     }
 
     // Update is called once per frame
@@ -40,7 +30,7 @@ public class Player : MonoBehaviour
         PlayerMove();
         PlayerRotation();
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Attack();
         }
@@ -66,15 +56,10 @@ public class Player : MonoBehaviour
             if (hit.collider.CompareTag("Enemy"))
             {
                 //Вызываем метод Damage из IEvents
-                hit.transform.GetComponent<IEvents>().Damage();
-
-                /*
-                IEvents enemyEvents = ServiceLocator.Get<IEvents>();
-                if (enemyEvents != null) 
+                if (hit.transform.TryGetComponent<IEvents>(out IEvents enemy))
                 {
-                    enemyEvents.Damage();
+                    enemy.Damage();
                 }
-                */
             }
         }
     }

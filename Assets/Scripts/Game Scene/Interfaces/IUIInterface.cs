@@ -4,8 +4,9 @@ using UnityEngine;
 
 public interface IUIInterface
 {
-    void AddEXP()
-    {
+    void AddEXP();
 
-    }
+    void GameOver();
+
+    void PauseGame();
 }

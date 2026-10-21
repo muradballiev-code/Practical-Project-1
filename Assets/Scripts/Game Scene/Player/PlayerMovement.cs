@@ -11,6 +11,6 @@ public class PlayerMovement
 
         Vector3 move = new Vector3(h, 0, v).normalized;
 
-        playerTransform.Translate(move * playerSpeed * Time.deltaTime);
+        playerTransform.Translate(move * playerSpeed * Time.deltaTime, Space.World);
     }
 }
